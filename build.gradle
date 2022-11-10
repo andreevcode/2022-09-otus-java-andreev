@@ -1,0 +1,33 @@
+import ru.otus.Versions
+
+plugins {
+    id "io.spring.dependency-management" version "1.0.14.RELEASE"
+    id 'java'
+}
+
+
+
+allprojects {
+    group 'ru.otus'
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    apply plugin: "io.spring.dependency-management"
+    dependencyManagement{
+        dependencies{
+            dependency "org.junit.jupiter:junit-jupiter-api:${Versions.JUNIT}"
+            dependency "org.junit.jupiter:junit-jupiter-engine:${Versions.JUNIT}"
+            dependency "com.google.guava:guava:${Versions.GUAVA}"
+        }
+    }
+
+}
+
+
+
+
+test {
+    useJUnitPlatform()
+}
