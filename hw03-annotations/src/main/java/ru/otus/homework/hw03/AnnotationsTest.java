@@ -4,6 +4,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.otus.homework.hw03.annotations.After;
+import ru.otus.homework.hw03.annotations.Before;
+import ru.otus.homework.hw03.annotations.Test;
 
 public class AnnotationsTest {
 

@@ -7,6 +7,9 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.otus.homework.hw03.annotations.After;
+import ru.otus.homework.hw03.annotations.Before;
+import ru.otus.homework.hw03.annotations.Test;
 
 import static ru.otus.reflection.ReflectionHelper.callMethod;
 import static ru.otus.reflection.ReflectionHelper.instantiate;
