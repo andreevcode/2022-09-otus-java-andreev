@@ -1,10 +1,8 @@
 package ru.otus.homework.hw03;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -56,33 +54,37 @@ public class TestAnnotationRunner {
             logger.info("@After methods: {}", afterMethods.stream().map(Method::getName).toList());
             logger.info("@Test methods: {}\n", testMethods.stream().map(Method::getName).toList());
 
-            for (Method testMethod : testMethods) {
-                Object testInstance = instantiate(clazz);
-                invokeMethods(testInstance, beforeMethods);
-                goodEnded += invokeMethods(testInstance, Collections.singletonList(testMethod));
-                invokeMethods(testInstance, afterMethods);
+            Object testInstance = instantiate(clazz);
+
+            for (Method testMethod : testMethods){
+                goodEnded += runTest(testInstance, testMethod, beforeMethods, afterMethods);
             }
-        } catch (ClassNotFoundException e) {
-            logger.error("Bad file name: ", e);
+
+        } catch (ClassNotFoundException | RuntimeException e) {
+            logger.error("Error while test class or instance initialisation: ", e);
         }
 
         printResult();
     }
 
 
-    private int invokeMethods(Object instance, List<Method> methods){
+    private int runTest(Object instance, Method testMethod, List<Method> beforeMethods, List<Method> afterMethods){
         int endedGood = 0;
-        for (Method method : methods) {
-            try {
-                callMethod(instance, method.getName());
-                endedGood++;
-            }
-            catch (RuntimeException e){
-                var cause = (InvocationTargetException)e.getCause();
-                logger.error("  {}", cause.getTargetException().toString().replaceAll("[\\t\\n\\r]+", " "));
-            }
+        try {
+            beforeMethods.forEach(method -> callMethod(instance, method.getName()));
+            callMethod(instance, testMethod.getName());
+            endedGood++;
+        } catch (RuntimeException e) {
+            logger.error("Error while setUp or run test", e);
+        }
+
+        try {
+            afterMethods.forEach(method -> callMethod(instance, method.getName()));
+        } catch (RuntimeException e){
+            logger.error("Error while teardown", e);
         }
         return endedGood;
+
     }
 
     private void printResult() {
