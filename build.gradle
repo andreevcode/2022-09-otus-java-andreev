@@ -45,8 +45,6 @@ allprojects {
 }
 
 
-
-
 test {
     useJUnitPlatform()
 }
