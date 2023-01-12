@@ -23,6 +23,7 @@ allprojects {
                 mavenBom "com.google.protobuf:protobuf-bom:3.21.1"
             }
             dependency "com.google.guava:guava:${Versions.GUAVA}"
+            dependency("org.glassfish:jakarta.json:${Versions.GLASS_FISH_JSON}")
         }
     }
 
