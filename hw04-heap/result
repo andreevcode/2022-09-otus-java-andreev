@@ -1,0 +1,12 @@
+Heap,Mb |  Result non-optimized | Results optimized
+128     |  FAIL                 | FAIL
+180     |  FAIL                 | FAIL
+200     |  FAIL                 | msec:4664
+256     |  FAIL                 | msec:2731 optimal
+512     |  msec:13478           | msec:2501
+1024    |  msec:12436           | msec:2470
+1280    |  msec:11314 optimal   | msec:2622
+1350    |  msec:11961           | msec:2628
+1536    |  msec:11306           | msec:2618
+1800    |  msec:11578           | msec:2558
+2048    |  msec:12021           | msec:2619
